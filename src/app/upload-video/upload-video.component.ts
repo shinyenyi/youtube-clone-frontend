@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { uploadVideoResponse } from './upload-video-request-response';
 import { UploadVideoService } from './upload-video.service';
 
 @Component({
@@ -12,8 +14,10 @@ export class UploadVideoComponent implements OnInit {
   fileUploaded: boolean = false;
   public files: NgxFileDropEntry[] = [];
   fileEntry!: FileSystemFileEntry;
+  uploadVideoResponse!: uploadVideoResponse;
 
-  constructor(private uploadVideoService: UploadVideoService) { }
+  constructor(private uploadVideoService: UploadVideoService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -23,9 +27,17 @@ export class UploadVideoComponent implements OnInit {
       this.fileEntry.file(file => {
         this.uploadVideoService.uploadVideo(file).subscribe(
           {
-            next: data => { console.log(data) },
+            next: data => {
+              this.uploadVideoResponse = data;
+              console.log(this.uploadVideoResponse);
+            },
             error: (error) => { console.log(error) },
-            complete: () => { console.log("video successfully uploaded") }
+            complete: () => {
+              console.log("video successfully uploaded")
+              this.fileUploaded = false;
+              this.files = [];
+              this.router.navigate(["/savedVideo/" + this.uploadVideoResponse.videoId]);
+            }
           }
         );
       });
@@ -42,7 +54,6 @@ export class UploadVideoComponent implements OnInit {
         this.fileEntry.file((file: File) => {
 
           // Here you can access the real file
-          console.log(droppedFile.relativePath, file);
           this.fileUploaded = true;
           /**
           // You could upload it like this:

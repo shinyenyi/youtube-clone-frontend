@@ -11,13 +11,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from './header/header.component';
 import { MatIconModule } from '@angular/material/icon'
-import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { SavedVideoDetailsComponent } from './saved-video-details/saved-video-details.component'
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadVideoComponent,
-    HeaderComponent
+    HeaderComponent,
+    SavedVideoDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { MatToolbarModule } from '@angular/material/toolbar'
     NgxFileDropModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
