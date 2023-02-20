@@ -20,13 +20,21 @@ import { MatOptionModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import { AuthConfigModule } from './auth/auth-config.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadVideoComponent,
     HeaderComponent,
-    SavedVideoDetailsComponent
+    SavedVideoDetailsComponent,
+    VideoPlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +52,13 @@ import { MatChipsModule } from '@angular/material/chips';
     MatOptionModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatChipsModule
+    MatChipsModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
+    MatSnackBarModule,
+    AuthConfigModule
   ],
   providers: [],
   bootstrap: [AppComponent]
