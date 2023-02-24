@@ -1,1 +1,15 @@
-<p>video-details works!</p>
+<div fxLayout="row">
+    <div fxFlex="65%" class="videoDetails">
+        <app-video-player *ngIf="videoAvailable" [videoUrl]="videoUrl"></app-video-player>
+        <div class="mat-title">{{videoTitle}}</div>
+        <div fxLayout="row">
+            <div fxFlex="50%">
+                <div>Date</div>
+                <span>{{videoDescription}}</span>
+            </div>
+            <div fxFlex="50%"></div>
+        </div>
+    </div>
+    <div fxFlex="5%"></div>
+    <div fxFlex="30%">eeee4</div>
+</div>
