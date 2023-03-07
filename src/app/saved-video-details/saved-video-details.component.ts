@@ -60,6 +60,9 @@ export class SavedVideoDetailsComponent implements OnInit {
       "videoUrl": this.videoUrl,
       "videoStatus": this.saveVideoDetailsForm.get('videoStatus')?.value,
       "thumbnailUrl": this.thumbnailUrl,
+      "likeCount": 0,
+      "dislikeCount": 0,
+      "viewCount": 0
     }
 
     console.log(videoDetails)

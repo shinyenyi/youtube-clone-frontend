@@ -1,15 +1,60 @@
-<div fxLayout="row">
-    <div fxFlex="65%" class="videoDetails">
-        <app-video-player *ngIf="videoAvailable" [videoUrl]="videoUrl"></app-video-player>
-        <div class="mat-title">{{videoTitle}}</div>
-        <div fxLayout="row">
-            <div fxFlex="50%">
-                <div>Date</div>
-                <span>{{videoDescription}}</span>
+<div class="main-container" fxLayout="row">
+    <div fxFlex="10%"></div>
+    <div fxFlex="55%" class="video-detail">
+        <div fxLayout="column" fxLayoutGap="8px">
+            <app-video-player *ngIf="videoAvailable" [videoUrl]="videoUrl"></app-video-player>
+            <div fxLayout="row">
+                <div fxFlex="50%">
+                    <mat-card-title>{{videoTitle}}</mat-card-title>
+                </div>
+                <div fxFlex="50%" fxLayoutAlign="end center">
+                    <span class="view-count">views &nbsp;{{viewCount}}</span>
+                    <span class="dot"></span>
+                    <span class="video-upload-date">Apr 13, 2021</span>
+                </div>
             </div>
-            <div fxFlex="50%"></div>
+            <mat-divider></mat-divider>
+            <div fxLayout="row">
+                <div fxFlex="30%">
+                    <mat-card-title fxLayout="row">Miguel</mat-card-title>
+                    <mat-card-subtitle class="subtitles" fxLayout="row">4.2K Subscribers</mat-card-subtitle>
+                </div>
+                <div fxFlex="5%"></div>
+                <div fxFlex="30%">
+                    <button *ngIf="!subscribed" class="subscribe-button" mat-raised-button color="warn"
+                        (click)="subscribeToUser()">SUBSCRIBE</button>
+                    <button *ngIf="subscribed" class="subscribe-button-clicked" mat-raised-button color="accent"
+                        (click)="unSubscribeFromUser()">
+                        UNSUBSCRIBE
+                    </button>
+                </div>
+                <div fxFlex="5%"></div>
+                <div fxFlex="30%">
+                    <span class="like-dislike-section">
+                        <button mat-icon-button class="thumbs-up" (click)="likeVideo()">
+                            <mat-icon>thumb_up_off_alt</mat-icon>
+                            &nbsp;
+                            {{likeCount}}
+                        </button>
+                        <button mat-icon-button class="thumbs-down" (click)="dislikeVideo()">
+                            <mat-icon>thumb_down_off_alt</mat-icon>
+                            &nbsp;
+                            {{dislikeCount}}
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div>{{videoDescription}}</div>
+            <mat-divider></mat-divider>
+            <mat-chip-listbox>
+                <mat-chip-option>Spring Boot</mat-chip-option>
+                <mat-chip-option>Angular</mat-chip-option>
+            </mat-chip-listbox>
+            <mat-divider></mat-divider>
+            <app-comments [videoId]="videoId"></app-comments>
         </div>
     </div>
     <div fxFlex="5%"></div>
-    <div fxFlex="30%">eeee4</div>
+    <div fxFlex="30%" class="suggestion-bar">
+    </div>
 </div>

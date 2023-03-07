@@ -27,4 +27,12 @@ export class SavedVideoDetailsService {
   saveVideo(videoDetails: videoDto): Observable<videoDto> {
     return this.http.put<videoDto>("http://localhost:8080/api/videos", videoDetails);
   }
+
+  likeVideo(videoId: string): Observable<videoDto> {
+    return this.http.post<videoDto>("http://localhost:8080/api/videos/" + videoId + "/like", null);
+  }
+
+  dislikeVideo(videoId: string): Observable<videoDto> {
+    return this.http.post<videoDto>("http://localhost:8080/api/videos/" + videoId + "/dislike", null);
+  }
 }

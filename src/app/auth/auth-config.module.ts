@@ -6,15 +6,15 @@ import { AuthModule } from 'angular-auth-oidc-client';
     imports: [AuthModule.forRoot({
         config: {
             authority: 'https://dev-oyjvf3d6plbg7wng.us.auth0.com',
-            redirectUrl: window.location.origin,
+            redirectUrl: window.location.origin + "/callback",
             clientId: 'O1LRJ0TGQre5ZTBBlfO5IdfPVaVKM71n',
             scope: 'openid profile offline_access email',
             responseType: 'code',
             silentRenew: true,
             useRefreshToken: true,
             secureRoutes: ['http://localhost:8080'],
-            customParamsAuthRequest:{
-                audience:'http://localhost:8080'
+            customParamsAuthRequest: {
+                audience: 'http://localhost:8080'
             }
         }
     })],

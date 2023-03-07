@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SavedVideoDetailsService } from '../saved-video-details/saved-video-details.service';
+import { UserServiceService } from '../user-service.service';
 
 @Component({
   selector: 'app-video-details',
@@ -15,8 +16,13 @@ export class VideoDetailsComponent implements OnInit {
   videoTitle = '';
   videoDescription = '';
   videoTags: string[] = [];
+  likeCount: number = 0;
+  dislikeCount: number = 0;
+  viewCount: number = 0;
+  subscribed = false;
 
   constructor(private activatedRoute: ActivatedRoute,
+    private userService: UserServiceService,
     private savedVideoDetailsService: SavedVideoDetailsService) {
     this.videoId = this.activatedRoute.snapshot.params['videoId'];
 
@@ -25,7 +31,10 @@ export class VideoDetailsComponent implements OnInit {
         this.videoUrl = data.videoUrl;
         this.videoDescription = data.description;
         this.videoTags = data.tags;
-        this.videoTitle = data.title
+        this.videoTitle = data.title;
+        this.likeCount = data.likeCount;
+        this.dislikeCount = data.dislikeCount;
+        this.viewCount = data.viewCount;
       },
       error: error => { },
       complete: () => {
@@ -35,5 +44,41 @@ export class VideoDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  likeVideo() {
+    this.savedVideoDetailsService.likeVideo(this.videoId).subscribe(
+      {
+        next: data => {
+          this.likeCount = data.likeCount;
+          this.dislikeCount = data.dislikeCount;
+        }
+      }
+    );
+  }
+
+  dislikeVideo() {
+    this.savedVideoDetailsService.dislikeVideo(this.videoId).subscribe(
+      {
+        next: data => {
+          this.likeCount = data.likeCount;
+          this.dislikeCount = data.dislikeCount;
+        }
+      }
+    );
+  }
+
+  subscribeToUser() {
+    let userId = sessionStorage.getItem("userId")!;
+    this.userService.subscribeToUser(userId).subscribe({
+      next: data => { this.subscribed = data }
+    });
+  }
+
+  unSubscribeFromUser() {
+    let userId = sessionStorage.getItem("userId")!;
+    this.userService.unSubscribeFromUser(userId).subscribe({
+      next: data => { this.subscribed = !data }
+    });
   }
 }
